@@ -80,10 +80,8 @@ jobs:
     - name: Build on Windows with vgui
       if: startsWith(matrix.os, 'windows')
       run: |
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -B build -S . -DUSE_VGUI=ON -DCMAKE_INSTALL_PREFIX="dist-vgui"
-        cmake --build build --target all
-        cmake --build build --target install
-
+        ./waf configure -T release
+        ./waf build
     - name: Set developer command prompt for Windows x86_64
       if: startsWith(matrix.os, 'windows')
       uses: ilammy/msvc-dev-cmd@v1
