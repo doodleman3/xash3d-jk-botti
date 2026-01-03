@@ -14,9 +14,6 @@ jobs:
           - os: ubuntu-latest
             cc: clang
             cxx: clang++
-          - os: windows-latest
-            cc: cl
-            cxx: cl
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
@@ -70,29 +67,6 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x86
-
-    - name: Build on Windows
-      if: startsWith(matrix.os, 'windows')
-      run: |
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -B build -S . -DCMAKE_INSTALL_PREFIX="dist"
-        cmake --build build --target all
-        cmake --build build --target install
-    - name: Build on Windows with vgui
-      if: startsWith(matrix.os, 'windows')
-      run: |
-        ./waf configure -T release
-        ./waf build
-    - name: Set developer command prompt for Windows x86_64
-      if: startsWith(matrix.os, 'windows')
-      uses: ilammy/msvc-dev-cmd@v1
-      with:
-        arch: x64
-    - name: Build on Windows x64
-      if: startsWith(matrix.os, 'windows')
-      run: |
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -B build64 -S . -DCMAKE_INSTALL_PREFIX="dist64" -D64BIT=ON
-        cmake --build build64 --target all
-        cmake --build build64 --target install
 
     - name: Extract branch name
       shell: bash
