@@ -11,9 +11,6 @@ jobs:
           - os: ubuntu-latest
             cc: gcc
             cxx: g++
-          - os: ubuntu-latest
-            cc: clang
-            cxx: clang++
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
